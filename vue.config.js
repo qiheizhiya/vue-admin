@@ -10,20 +10,25 @@ module.exports = {
    * webpack配置,see https://github.com/vuejs/vue-cli/blob/dev/docs/webpack.md
    **/
   chainWebpack: (config) => {
+    const svgRule = config.module.rule("svg");
+    svgRule.uses.clear();
+    svgRule
+    .use("svg-sprite-loader")
+    .loader("svg-sprite-loader")
+    .options({
+      symbolId: "icon-[name]",
+      include: ["./src/icons"]
+    })
   },
   configureWebpack: (config) => {
-    // config.resolve = { // 配置解析别名
-    //   extensions: ['.js', '.json', '.vue'],
-    //   alias: {
-    //     '@': path.resolve(__dirname, './src'),
-    //     'public': path.resolve(__dirname, './public'),
-    //     'components': path.resolve(__dirname, './src/components'),
-    //     'common': path.resolve(__dirname, './src/common'),
-    //     'api': path.resolve(__dirname, './src/api'),
-    //     'views': path.resolve(__dirname, './src/views'),
-    //     'data': path.resolve(__dirname, './src/data')
-    //   }
-    // }
+    config.resolve = { // 配置解析别名
+      extensions: ['.js', '.json', '.vue'],
+      alias: {
+        'vue': 'vue/dist/vue.js',
+        '@': path.resolve(__dirname, './src'),
+        '@c': path.resolve(__dirname, './src/components'),
+      }
+    }
   },
   // 生产环境是否生成 sourceMap 文件
   productionSourceMap: false,
@@ -58,7 +63,15 @@ module.exports = {
     https: false, // 编译失败时刷新页面
     hot: true, // 开启热加载
     hotOnly: false,
-    proxy: null, // 设置代理
+    proxy: {// 设置代理
+      '/api': {
+        target: 'http://www.web-jshtml.cn/productapi/token',//API服务器的地址
+        changeOrigin: true,
+        pathRewrite:{
+          '^/api': ""
+        }
+      }
+    }, 
     overlay: { // 全屏模式下是否显示脚本错误
       warnings: true,
       errors: true
