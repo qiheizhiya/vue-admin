@@ -1,24 +1,11 @@
-# vue-admins
+##后台管理系统
 
-## Project setup
-```
-yarn install
-```
+![](/markdown/regi.png)
 
-### Compiles and hot-reloads for development
-```
-yarn serve
-```
+1) 先注册账号
+2) 点左边的登陆进行登陆就可以进入系统
 
-### Compiles and minifies for production
-```
-yarn build
-```
-
-### Lints and fixes files
-```
-yarn lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## 运行方式
+1) 下载本文件并解压
+2) 去命令行到根目录
+3) yarn serve 运行项目 即可
